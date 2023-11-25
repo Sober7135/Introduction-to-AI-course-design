@@ -35,9 +35,10 @@ def train(iteration, dataset, expected_output):
             print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
 
 
-def train_with_weights(iteration, dataset, expected_output):
+def train_with_feedback(iteration, dataset, expected_output):
     weights_fc1 = []
     weights_fc2 = []
+    losses = []
     for epoch in range(iteration):
         weights_fc1.append(model.fc1.weight.data.numpy().copy())  
         weights_fc2.append(model.fc2.weight.data.numpy().copy())  
@@ -49,9 +50,11 @@ def train_with_weights(iteration, dataset, expected_output):
 
         if (epoch + 1) % 10 == 0:
             print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
+        
+        losses.append(loss.item())
     weights_fc1.append(model.fc1.weight.data)  
     weights_fc2.append(model.fc2.weight.data)  
-    return weights_fc1, weights_fc2
+    return weights_fc1, weights_fc2, losses
 
 def evaluate():
     with torch.no_grad():

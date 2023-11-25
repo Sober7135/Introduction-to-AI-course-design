@@ -60,9 +60,9 @@ def hidden_layer_output():
     fig_2d.subplots_adjust(hspace=0.5)
     fig_3d.subplots_adjust(hspace=0.5)
 
-def weights():
-    weights_fc1, weights_fc2 = train_with_weights(epochs, coordinates_train, labels_train)
-    weights_fc1, weights_fc2 = np.array(weights_fc1), np.array(weights_fc2)
+def weights_loss():
+    weights_fc1, weights_fc2, losses = train_with_feedback(epochs, coordinates_train, labels_train)
+    weights_fc1, weights_fc2, losses = np.array(weights_fc1), np.array(weights_fc2), np.array(losses)
     plt.figure(figsize=(20,20))
     for neuron_index in range(weights_fc1.shape[1]):
         for weight_index in range(weights_fc1.shape[2]): 
@@ -82,9 +82,18 @@ def weights():
     plt.ylabel('Weight Value')
     plt.legend()
 
+    plt.figure(figsize=(20,20))
+    plt.plot(losses)
+
+    plt.title('Loss Changes During Training')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.legend()
+ 
+
 def analysis():
     # train
-    weights()
+    weights_loss()
     evaluate()
     decision_boundary()
     hidden_layer_output()
