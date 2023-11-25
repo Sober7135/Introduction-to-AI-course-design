@@ -32,7 +32,7 @@ def train(iteration, dataset, expected_output):
         optimizer.step()
 
         if (epoch + 1) % 10 == 0:
-            print(f"Epoch {epoch + 1}/{120}, Loss: {loss.item():.4f}")
+            print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
 
 
 def train_with_weights(iteration, dataset, expected_output):
@@ -48,7 +48,7 @@ def train_with_weights(iteration, dataset, expected_output):
         optimizer.step()
 
         if (epoch + 1) % 10 == 0:
-            print(f"Epoch {epoch + 1}/{120}, Loss: {loss.item():.4f}")
+            print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
     weights_fc1.append(model.fc1.weight.data)  
     weights_fc2.append(model.fc2.weight.data)  
     return weights_fc1, weights_fc2
@@ -60,4 +60,4 @@ def evaluate():
         predicted_class = (test_outputs > 0.5).float()
         accuracy = (predicted_class == labels_test).float().mean()
     print(f"Test Loss: {test_loss.item():.4f}")
-    print(f"Test Accuracy: {accuracy.item() * 100:.2f}%")
+    print(f"Test Accuracy: {accuracy.item() * 100:.8f}%")
