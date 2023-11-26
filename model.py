@@ -48,12 +48,12 @@ def train_with_feedback(iteration, dataset, expected_output):
         loss.backward()
         optimizer.step()
 
-        if (epoch + 1) % 10 == 0:
-            print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
+        # if (epoch + 1) % 10 == 0:
+            # print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss.item():.8f}")
         
         losses.append(loss.item())
-    weights_fc1.append(model.fc1.weight.data)  
-    weights_fc2.append(model.fc2.weight.data)  
+    weights_fc1.append(model.fc1.weight.data.numpy().copy())  
+    weights_fc2.append(model.fc2.weight.data.numpy().copy())  
     return weights_fc1, weights_fc2, losses
 
 def evaluate():
